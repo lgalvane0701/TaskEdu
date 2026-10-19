@@ -56,6 +56,10 @@ class TaskManager:
             return list(self.tasks)
         return [t for t in self.tasks if t["status"] == estado]
 
+    def count(self, filtro="Todas"):
+        """Cantidad de tareas que cumplen el filtro (HU-04)."""
+        return len(self.list(filtro))
+
     # --- HU-03 ---
     def mark_done(self, task_id):
         for t in self.tasks:

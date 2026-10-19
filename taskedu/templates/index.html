@@ -7,7 +7,7 @@
 <form method="post" action="/agregar">
 <input name="title" placeholder="Título" required maxlength="120"> <input name="subject" placeholder="Asignatura" required>
 <input name="due" type="date" required> <button>Registrar</button></form>
-<p>Filtrar: {% for f in filtros %}<a href="/?filtro={{f}}">{% if f==filtro %}<b>{{f}}</b>{% else %}{{f}}{% endif %}</a> {% endfor %}</p>
+<p>Filtrar: {% for f in filtros %}<a href="/?filtro={{f}}">{% if f==filtro %}<b>{{f}} ({{ contadores[f] }})</b>{% else %}{{f}} ({{ contadores[f] }}){% endif %}</a> {% endfor %}</p>
 {% if not tasks %}<p>No hay tareas registradas.</p>{% else %}<p>{{ tasks|length }} tarea(s) registrada(s).</p><ul>
 {% for t in tasks %}<li class="{{t.status}}"><b>{{t.title}}</b> — {{t.subject}} — {{t.due}} — <i>{{t.status}}</i>
 {% if t.status=="Pendiente" %}<form style="display:inline" method="post" action="/terminar/{{t.id}}?filtro={{filtro}}"><button>Marcar terminada</button></form>{% endif %}</li>{% endfor %}</ul>{% endif %}

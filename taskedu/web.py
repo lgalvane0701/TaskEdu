@@ -12,8 +12,10 @@ def create_app(path="tasks.json"):
         filtro = request.args.get("filtro", "Todas")
         if filtro not in FILTROS:
             filtro = "Todas"
+        contadores = {f: manager.count(f) for f in FILTROS}
         return render_template("index.html", tasks=manager.list(filtro),
-                               filtro=filtro, filtros=list(FILTROS))
+                               filtro=filtro, filtros=list(FILTROS),
+                               contadores=contadores)
 
     @app.post("/agregar")
     def agregar():

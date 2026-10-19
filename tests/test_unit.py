@@ -49,6 +49,12 @@ def test_estado_persiste_en_disco(tmp_path):  # HU-03
     assert segundo.list("Terminadas")[0]["status"] == TERMINADA
 
 
+def test_filtrar_sin_tareas(tm):  # HU-04
+    assert tm.list("Pendientes") == []
+    assert tm.list("Terminadas") == []
+    assert tm.count("Todas") == 0
+
+
 def test_filtrar_por_estado(tm):  # HU-04
     a = tm.add("A", "X", "2026-11-05")
     tm.add("B", "X", "2026-11-06")
