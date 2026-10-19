@@ -29,6 +29,7 @@ def create_app(path="tasks.json"):
     def terminar(task_id):
         try:
             manager.mark_done(task_id)
+            flash("Tarea marcada como terminada.", "ok")
         except KeyError:
             flash("La tarea no existe.", "error")
         return redirect(url_for("index", filtro=request.args.get("filtro", "Todas")))

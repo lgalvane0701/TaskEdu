@@ -39,6 +39,16 @@ def test_marcar_terminada(tm):  # HU-03
     assert tm.mark_done(t["id"])["status"] == TERMINADA
 
 
+def test_estado_persiste_en_disco(tmp_path):  # HU-03
+    path = str(tmp_path / "t.json")
+    primero = TaskManager(path)
+    t = primero.add("Taller 1", "Matemáticas", "2026-11-05")
+    primero.mark_done(t["id"])
+    # nueva instancia leyendo el mismo archivo (simula "actualizar la app")
+    segundo = TaskManager(path)
+    assert segundo.list("Terminadas")[0]["status"] == TERMINADA
+
+
 def test_filtrar_por_estado(tm):  # HU-04
     a = tm.add("A", "X", "2026-11-05")
     tm.add("B", "X", "2026-11-06")
