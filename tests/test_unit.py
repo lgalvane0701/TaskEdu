@@ -27,6 +27,13 @@ def test_asignatura_obligatoria(tm):  # HU-01
         tm.add("Taller 1", "  ", "2026-11-05")
 
 
+def test_listar_varias_tareas(tm):  # HU-02
+    tm.add("A", "X", "2026-11-05")
+    tm.add("B", "Y", "2026-11-06")
+    assert len(tm.list()) == 2
+    assert [t["title"] for t in tm.list()] == ["A", "B"]
+
+
 def test_marcar_terminada(tm):  # HU-03
     t = tm.add("Taller 1", "Matemáticas", "2026-11-05")
     assert tm.mark_done(t["id"])["status"] == TERMINADA
