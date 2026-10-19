@@ -1,0 +1,11 @@
+# Documentos de trabajo del proyecto (nunca se suben al repositorio)
+Documentos/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Datos de la aplicación
+tasks.json
