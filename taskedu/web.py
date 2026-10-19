@@ -2,6 +2,12 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from .core import FILTROS, TaskManager
 
 
+def _selected_filter():
+    """Devuelve el filtro solicitado o 'Todas' si no es válido."""
+    filtro = request.args.get("filtro", "Todas")
+    return filtro if filtro in FILTROS else "Todas"
+
+
 def create_app(path="tasks.json"):
     app = Flask(__name__)
     app.secret_key = "taskedu-dev"
@@ -9,9 +15,7 @@ def create_app(path="tasks.json"):
 
     @app.get("/")
     def index():
-        filtro = request.args.get("filtro", "Todas")
-        if filtro not in FILTROS:
-            filtro = "Todas"
+        filtro = _selected_filter()
         contadores = {f: manager.count(f) for f in FILTROS}
         return render_template("index.html", tasks=manager.list(filtro),
                                filtro=filtro, filtros=list(FILTROS),
@@ -34,6 +38,6 @@ def create_app(path="tasks.json"):
             flash("Tarea marcada como terminada.", "ok")
         except KeyError:
             flash("La tarea no existe.", "error")
-        return redirect(url_for("index", filtro=request.args.get("filtro", "Todas")))
+        return redirect(url_for("index", filtro=_selected_filter()))
 
     return app

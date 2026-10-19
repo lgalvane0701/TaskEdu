@@ -36,10 +36,13 @@ class TaskManager:
         except (TypeError, ValueError):
             raise ValueError("La fecha debe tener formato AAAA-MM-DD.")
 
+    def _next_id(self):
+        return max((t["id"] for t in self.tasks), default=0) + 1
+
     def add(self, title, subject, due):
         self._validate(title, subject, due)
         task = {
-            "id": max((t["id"] for t in self.tasks), default=0) + 1,
+            "id": self._next_id(),
             "title": title.strip(),
             "subject": subject.strip(),
             "due": due,
