@@ -17,6 +17,16 @@ def test_titulo_vacio_rechazado(tm):  # HU-01
         tm.add("   ", "Matemáticas", "2026-11-05")
 
 
+def test_fecha_invalida_rechazada(tm):  # HU-01
+    with pytest.raises(ValueError):
+        tm.add("Taller 1", "Matemáticas", "05-11-2026")
+
+
+def test_asignatura_obligatoria(tm):  # HU-01
+    with pytest.raises(ValueError):
+        tm.add("Taller 1", "  ", "2026-11-05")
+
+
 def test_marcar_terminada(tm):  # HU-03
     t = tm.add("Taller 1", "Matemáticas", "2026-11-05")
     assert tm.mark_done(t["id"])["status"] == TERMINADA
