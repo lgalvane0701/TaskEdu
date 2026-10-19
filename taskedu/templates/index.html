@@ -5,8 +5,8 @@
 <body><h1>TaskEdu</h1>
 {% for cat, msg in get_flashed_messages(with_categories=true) %}<p class="{{cat}}">{{msg}}</p>{% endfor %}
 <form method="post" action="/agregar">
-<input name="title" placeholder="Título"> <input name="subject" placeholder="Asignatura">
-<input name="due" type="date"> <button>Registrar</button></form>
+<input name="title" placeholder="Título" required maxlength="120"> <input name="subject" placeholder="Asignatura" required>
+<input name="due" type="date" required> <button>Registrar</button></form>
 <p>Filtrar: {% for f in filtros %}<a href="/?filtro={{f}}">{% if f==filtro %}<b>{{f}}</b>{% else %}{{f}}{% endif %}</a> {% endfor %}</p>
 {% if not tasks %}<p>No hay tareas registradas.</p>{% else %}<ul>
 {% for t in tasks %}<li class="{{t.status}}"><b>{{t.title}}</b> — {{t.subject}} — {{t.due}} — <i>{{t.status}}</i>
